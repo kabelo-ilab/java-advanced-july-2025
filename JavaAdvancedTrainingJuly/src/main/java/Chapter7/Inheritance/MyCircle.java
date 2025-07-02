@@ -10,7 +10,6 @@ public class MyCircle extends Shape {
         //              radius      *   radius
         return Math.PI * (getWidth() * getWidth());
     }
-
     public void display(String title){
         System.out.println("============ " + title + " ===================");
         System.out.println("Radius: " + getWidth());
