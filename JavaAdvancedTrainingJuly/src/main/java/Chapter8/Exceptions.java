@@ -31,7 +31,13 @@ public class Exceptions {
             System.out.println("Incorrect input");
         }catch (StringIndexOutOfBoundsException ex){
             System.out.println("The name should be at least 6 characters long");
+        }finally {
+            //statements to be executed regardless of an exception
+            sc.close();
+            System.out.println("Thank you for using our application");
         }
+
+
 
 
 
