@@ -17,6 +17,5 @@ public class ShapeRunner {
 
         MyTriangle objTriangle = new MyTriangle(7,5);
         objTriangle.display("Triangle");
-
     }
 }
