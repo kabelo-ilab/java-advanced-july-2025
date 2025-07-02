@@ -1,7 +1,5 @@
 package Chapter7;
 
-import java.util.Scanner;
-
 public class AccountRunner {
     public static void main(String[] args) {
         Account objAccount = new Account("123456","Tom", 2000, AccountType.SAVINGS);
