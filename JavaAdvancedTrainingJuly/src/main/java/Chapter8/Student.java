@@ -1,4 +1,7 @@
 package Chapter8;
+
+import java.util.regex.Pattern;
+
 /*Rules:1 - Student number should contain 8 digits
 *       2 - Age should be >= 17
 *       3 - Firstname should be at least 3 characters long*/
@@ -9,6 +12,7 @@ public class Student {
     private String subject;
     private int age;
     private int testMark, assignment1, assignment2;
+    private Pattern ptn = Pattern.compile("^-?\\d+$");//check for whole numbers
 
     public Student(String studentNum, String firstname, String lastname, String subject, int age) {
         setStudentNum(studentNum);
@@ -33,7 +37,17 @@ public class Student {
     }
 
     private void setStudentNum(String studentNum) {
-        this.studentNum = "ST-25" + studentNum;
+        boolean isValid = ptn.matcher(studentNum).matches();
+
+        if (studentNum.length() != 8){
+            throw new IllegalArgumentException("Student number should be 8 digits long." +
+                    "\nCurrent Student number: [" + studentNum + "]");
+        }
+        if (!isValid){
+            throw new IllegalArgumentException("Student number should only contain digits." +
+                    "\nCurrent Student number: [" + studentNum + "]");
+        }
+        this.studentNum = "ST-25-" + studentNum;
     }
 
     public String getFirstname() {
@@ -68,8 +82,13 @@ public class Student {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(int age) {//15
+        if (age < 17){
+            throw new IllegalArgumentException("Age should be 17 or greater. " +
+                    "\nThe current age is: (" + age + ")");
+        }
         this.age = age;
+
     }
 
     public void display(){
