@@ -4,7 +4,9 @@ import java.util.regex.Pattern;
 
 /*Rules:1 - Student number should contain 8 digits
 *       2 - Age should be >= 17
-*       3 - Firstname should be at least 3 characters long*/
+*       3 - Firstname should be at least 3 characters long
+*       4 - No exam entry if the semester mark is < 40
+*           throw NoExamEntryException*/
 public class Student {
     private String studentNum;
     private String firstname;
@@ -28,9 +30,15 @@ public class Student {
         this.assignment2 = assignment2;
     }
 
-    public double getSemesterMark(){
+    public double getSemesterMark() throws NoExamEntryException {
         //test * 34%, a1 * 33%, a2 * 33%
-        return ((testMark * 0.34) + (assignment1 * 0.33) + (assignment2 * 0.33));
+        double semesterMark = ((testMark * 0.34) + (assignment1 * 0.33) + (assignment2 * 0.33));
+
+        if (semesterMark < 40){
+            throw new NoExamEntryException("Student [" + this.firstname + "] doesn't qualify for exam." +
+                    "\nYou need 40 or above, current score is [" + semesterMark + "]");
+        }
+        return semesterMark;
     }
     public String getStudentNum() {
         return studentNum;
@@ -91,7 +99,7 @@ public class Student {
 
     }
 
-    public void display(){
+    public void display() throws NoExamEntryException{
         System.out.println("Student#: " + getStudentNum());
         System.out.println("Name: " + getFirstname() + " " + getLastname());
         System.out.println("Age: " + getAge());
