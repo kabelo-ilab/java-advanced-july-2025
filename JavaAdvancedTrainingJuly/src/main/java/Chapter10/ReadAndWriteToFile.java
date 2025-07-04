@@ -4,7 +4,6 @@ import java.io.*;
 
 public class ReadAndWriteToFile {
     public static void main(String[] args) {
-
         //writeToFile();
         readFromFile();
     }
