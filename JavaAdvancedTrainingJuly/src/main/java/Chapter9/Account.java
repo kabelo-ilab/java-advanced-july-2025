@@ -77,15 +77,15 @@ public class Account {
         //savings = sv, debit = db, credit = cr, loan = ln, cheque = cq
         String accountPrefix = "NN";
 
-        if (this.getAccountType() == AccountType.SAVINGS){
+        if (this.getAccountType() == AccountType.SAVINGS){//false
             accountPrefix = "SV-";
-        } else if (this.getAccountType() == AccountType.CREDIT) {
+        } else if (this.getAccountType() == AccountType.CREDIT) {//false
             accountPrefix = "CR-";
-        } else if (this.getAccountType() == AccountType.DEBIT) {
+        } else if (this.getAccountType() == AccountType.DEBIT) {//false
             accountPrefix = "DB-";
-        } else if (this.getAccountType() == AccountType.CHEQUE) {
+        } else if (this.getAccountType() == AccountType.CHEQUE) {//false
             accountPrefix = "CQ-";
-        } else if (this.getAccountType() == AccountType.LOAN) {
+        } else {//true
             accountPrefix = "LN-";
         }
         this.accountNumber = accountPrefix + accountNumber;
@@ -95,11 +95,21 @@ public class Account {
         this.balance = this.balance + amount;
     }
 
-    public void withdraw(double amount){
+    public void withdraw(double amount) throws InsufficientFundsException {
+        if (amount > this.balance){
+            throw new InsufficientFundsException("Insufficient Funds. " +
+                    "\nAvailable Balance = " + this.getBalance() +
+                    "\nRequested amount = " + amount);
+        }
         this.balance = this.balance - amount;
     }
 
-    public void transfer(Account targetAccount, double amountToTransfer){
+    public void transfer(Account targetAccount, double amountToTransfer) throws InsufficientFundsException {
+        if (amountToTransfer > this.balance){
+            throw new InsufficientFundsException("Insufficient Funds. " +
+                    "\nAvailable Balance = " + this.getBalance() +
+                    "\nRequested amount = " + amountToTransfer);
+        }
         //this.balance = this.balance - amountToTransfer;
         this.withdraw(amountToTransfer);
         //targetAccount.balance = targetAccount.balance + amountToTransfer;
