@@ -1,6 +1,7 @@
 package Chapter9;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -28,5 +29,11 @@ public class ParameterizedTests {
     @CsvSource(value = {"Milk,20.55,100","Bread,18.50,50","Cheese,89.99,75","Eggs,78.95,70"})
     void testLowStockProducts(String name, double price, int qtyInStock){
        assertTrue(qtyInStock < 75, "There is enough stock [" + qtyInStock + "] for " + name);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(files = "src/test/resources/accounts.csv", numLinesToSkip = 1)
+    void testFileSource(String name, String accNumber, double balance){
+        System.out.println("name = " + name + ", accNumber = " + accNumber + ", balance = " + balance);
     }
 }
